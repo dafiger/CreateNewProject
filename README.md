@@ -1,2 +1,2 @@
 # CreateNewProject
-新建OC工程脚本
+一键生成OC工程脚本
