@@ -88,14 +88,31 @@ cd ${ProjectName}
 mv ${DemoName} ${ProjectName}
 mv ${DemoName}.xcodeproj ${ProjectName}.xcodeproj
 
+
+function read_dir(){
+    for file in `ls $1`
+    do
+        if [ -d $1"/"$file ]  #注意此处之间一定要加上空格，否则会报错
+        then
+            read_dir $1"/"$file
+        else
+            echo $1"/"$file
+        fi
+    done
+}
+
+# path=`pwd`
+cd ../
+read_dir ${ProjectName}
+
 exit 0
 
-# 文件路径
-license_Path="./LICENSE"
-gitignore_Path="./.gitignore"
-readme_Path="./README.md"
-podfile_Path="./Podfile"
-upload_Path="./UPLOAD.sh"
+# 相关文件路径
+ignore_path="./.gitignore"
+license_path="./LICENSE"
+podfile_path="./Podfile"
+readme_path="./README.md"
+upload_path="./UPLOAD.sh"
 
 pbxproj_Path="./${ProjectName}.xcodeproj/project.pbxproj"
 xcworkspacedata_Path="./${ProjectName}.xcodeproj/project.xcworkspace/contents.xcworkspacedata"
