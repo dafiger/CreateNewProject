@@ -88,22 +88,32 @@ cd ${ProjectName}
 mv ${DemoName} ${ProjectName}
 mv ${DemoName}.xcodeproj ${ProjectName}.xcodeproj
 
-
-function read_dir(){
-    for file in `ls $1`
-    do
-        if [ -d $1"/"$file ]  #注意此处之间一定要加上空格，否则会报错
-        then
-            read_dir $1"/"$file
+# 遍历文件
+function listfile() {
+    for file_name in $(ls $1); do
+        if [ -d "$1/${file_name}" ]; then
+            read_dir "$1/${file_name}"
         else
-            echo $1"/"$file
+            echo -e "$1/${file_name}"
         fi
     done
 }
 
+# function read_dir(){
+#     for file in `ls $1`
+#     do
+#         if [ -d $1"/"$file ]  #注意此处之间一定要加上空格，否则会报错
+#         then
+#             read_dir $1"/"$file
+#         else
+#             echo $1"/"$file
+#         fi
+#     done
+# }
+
 # path=`pwd`
 cd ../
-read_dir ${ProjectName}
+listfile ${ProjectName}
 
 exit 0
 
