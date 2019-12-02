@@ -73,7 +73,7 @@ done
 
 # 桌面新建文件夹
 cd ~/Desktop
-ProjectPath="Demo$(date +%y%m%d%H%M%S)"
+ProjectPath="${ProjectName}_$(date +%y%m%d%H%M%S)"
 mkdir -p ${ProjectPath}
 cd ${ProjectPath}
 
@@ -82,34 +82,20 @@ git clone ${DemoClonePath}
 
 # 项目重命名
 mv ${DemoName} ${ProjectName}
-
-# 打开工程
 cd ${ProjectName}
 mv ${DemoName} ${ProjectName}
 mv ${DemoName}.xcodeproj ${ProjectName}.xcodeproj
 
 # 遍历文件
 function listfile() {
-    for file_name in $(ls $1); do
-        if [ -d "$1/${file_name}" ]; then
-            read_dir "$1/${file_name}"
+    for file_name in `ls $1`; do
+        if [ -d $1"/"$file_name ]; then
+            listfile $1"/"$file_name
         else
-            echo -e "$1/${file_name}"
+            echo -e $1"/"$file_name
         fi
     done
 }
-
-# function read_dir(){
-#     for file in `ls $1`
-#     do
-#         if [ -d $1"/"$file ]  #注意此处之间一定要加上空格，否则会报错
-#         then
-#             read_dir $1"/"$file
-#         else
-#             echo $1"/"$file
-#         fi
-#     done
-# }
 
 # path=`pwd`
 cd ../
