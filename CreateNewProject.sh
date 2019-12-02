@@ -92,62 +92,35 @@ function listfile() {
         if [ -d $1"/"$file_name ]; then
             listfile $1"/"$file_name
         else
-            echo -e $1"/"$file_name
+            # echo -e $1"/"$file_name
+            changeContent $1"/"$file_name
         fi
     done
 }
 
-# path=`pwd`
+# 修改文件内容
+function changeContent() {
+    tmpPath=$1
+    # echo -e "+++$(pwd)"
+    # echo -e "---$0"
+    # echo -e "...$(pwd)/$1"
+    # echo -e ">>>$tmpPath"
+
+    sed -i "" "s/OCProjectDemo/${ProjectName}/g" "$tmpPath"
+    sed -i "" "s/dafiger/$OrganizationName/g" "$tmpPath"
+    sed -i "" "s/2019.10.24/$(date +%Y.%m.%d)/g" "$tmpPath"
+    sed -i "" "s/2019\/10\/24/$(date +%Y.%m.%d)/g" "$tmpPath"
+}
+
 cd ../
 listfile ${ProjectName}
-
-exit 0
-
-# 相关文件路径
-ignore_path="./.gitignore"
-license_path="./LICENSE"
-podfile_path="./Podfile"
-readme_path="./README.md"
-upload_path="./UPLOAD.sh"
-
-pbxproj_Path="./${ProjectName}.xcodeproj/project.pbxproj"
-xcworkspacedata_Path="./${ProjectName}.xcodeproj/project.xcworkspace/contents.xcworkspacedata"
-infoplist_Path="./${ProjectName}/Info.plist"
-
-# 修改文件内容
-echo "Start editing..."
-
-sed -i "" "s%_Author_%${Author}%g"              "${license_Path}"
-sed -i "" "s%_ProjectName_%${ProjectName}%g"    "${gitignore_Path}"
-
-sed -i "" "s%_ProjectName_%${ProjectName}%g"    "${readme_Path}"
-sed -i "" "s%_date_time_%${date_now}%g"         "${readme_Path}"
-
-sed -i "" "s%_ProjectName_%${ProjectName}%g"       "${podfile_Path}"
-sed -i "" "s%_SpecHomePage_%${SpecHomePage}%g"     "${podfile_Path}"
-
-sed -i "" "s%_ProjectName_%${ProjectName}%g"  "${upload_Path}"
-
-# 组织名修改
-sed -i "" "s%dafiger%${OrganizationName}%g"   "${pbxproj_Path}"
-# BundleId修改
-# sed -i "" "s%OCProjectDemo%${ProjectName}%g"  "${pbxproj_Path}"
-# 工程相关的命名修改
-sed -i "" "s%${DemoName}%${ProjectName}%g"    "${pbxproj_Path}"
-sed -i "" "s%${DemoName}%${ProjectName}%g"    "${xcworkspacedata_Path}"
-sed -i "" "s%${DemoName}%${ProjectName}%g"    "${infoplist_Path}"
-
-echo "Edit finished"
-
-echo "Start cleaning..."
+cd ${ProjectName}
 
 rm -rf .git
 rm -rf .DS_Store
 rm -rf ${ProjectName}.xcodeproj/xcuserdata/
 rm -rf ${ProjectName}.xcodeproj/project.xcworkspace/xcuserdata/
 rm -rf ${ProjectName}.xcodeproj/project.xcworkspace/xcshareddata/
-
-echo "Clean finished"
 
 # 添加spec本地库
 # pod repo add ${SpecName} ${SpecHomePage}
@@ -157,7 +130,7 @@ echo "Clean finished"
 
 echo "Good luck for you!"
 
-
+exit 0
 
 
 
