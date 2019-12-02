@@ -116,6 +116,9 @@ cd ../
 listfile ${ProjectName}
 cd ${ProjectName}
 
+# 修改ignore文件
+changeContent "./.gitignore"
+
 rm -rf .git
 rm -rf .DS_Store
 rm -rf ${ProjectName}.xcodeproj/xcuserdata/
