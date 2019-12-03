@@ -110,6 +110,7 @@ function changeContent() {
     sed -i "" "s/dafiger/$OrganizationName/g" "$tmpPath"
     sed -i "" "s/2019.10.24/$(date +%Y.%m.%d)/g" "$tmpPath"
     sed -i "" "s/2019\/10\/24/$(date +%Y.%m.%d)/g" "$tmpPath"
+    sed -i "" "s/Copyright © 2019/Copyright © $(date +%Y)/g" "$tmpPath"
 }
 
 cd ../
